@@ -19,25 +19,6 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.put('/change', async (req, res) => {
-    try {
-        const target = await User.findOne({ id: req.body.id });
-        if(!target) {
-            throw new Error("계정이 존재하지 않습니다.");
-        }
-        if(req.body.pw === target.pw) {
-            throw new Error('기존 비밀번호랑 같습니다');
-        }
-        target.pw = req.body.pw;
-        const user = await target.save();
-        user.password = user.__v = undefined;
-        return res.json({ "result": { "success": true , "message": "비밀번호가 변경되었습니다." } });
-    } catch (err) {
-        const { message } = err;
-        res.status(200).json({ "result": { "success": false, message } });
-    }
-});
-
 router.delete('/delete', async (req, res) => {
     try {
         const target = await User.findOne({ id: req.body.id }); 

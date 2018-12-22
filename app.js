@@ -7,7 +7,7 @@ const config = require('./config/config');
 const app = express();
 
 const user = require('./routes/user');
-
+const mentor = require('./routes/mentor');
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extend: true / false }));
@@ -33,3 +33,4 @@ db.once('open', () => {
 });
 
 app.use("/user", user);
+app.use('/mentor', mentor);
